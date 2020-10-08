@@ -35,7 +35,8 @@ const getNodeHierarchy = (node) => {
 
 export const syncStrings = (airtableData: object) => {
   const nodes = figma.root.findAll(node => node.type === "TEXT")
-
+//add option for "update this page only" to speed up the process?
+  
   nodes.forEach(async (node: TextNode) => {
     if (!isVar(node.name)) return
 
