@@ -64,7 +64,7 @@ onmessage = (event) => {
     formFields.lastUpdatedDate['innerHTML'] = getFieldValue(data.lastUpdatedDate)
   }
 
-  if (type === 'sync') {
+  if (type === 'sync | syncpage') {
     console.log('sync called')
     const getAllStrings = async () => {
 
