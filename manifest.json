@@ -1,9 +1,12 @@
 {
-  "name": "{{copyThat.airtable}}",
-  "id": "782185813336691466",
+// "name": "{{copyThat.airtable}}",
+  "name": "copyThat test",
+//  "id": "782185813336691466",
   "api": "1.0.0",
-  "main": "dist/code.js",
-  "ui": "dist/ui.html",
+//  "main": "dist/code.js",
+  "main": "src/code.js",
+//  "ui": "dist/ui.html",
+  "ui": "src/ui.html",
   "menu": [
 	{"name": "Sync all the copy!", "command": "sync"},
 	{"name": "Sync current page only", "command": "syncpage"},
