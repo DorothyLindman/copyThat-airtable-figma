@@ -31,7 +31,7 @@ if (figma.command === 'sync' ) {
   let varNames = [];
   let fontsToLoad: FontName[] = [];
 
-  // Find all text nodes
+  // Find all text nodes in the document
   const nodes = figma.root.findAll(node => node.type === "TEXT");
 
   // Delete the old report node (if it's there), and make a new one
@@ -51,6 +51,33 @@ if (figma.command === 'sync' ) {
     figma.ui.postMessage({ type: 'sync', airtableConfig, varNames });
   })
 }
+
+if (figma.command === 'syncpage' ) {
+	// Initialize empty array for Airtable filter
+	let varNames = [];
+	let fontsToLoad: FontName[] = [];
+  
+	// Find all text nodes on the selected page
+	const nodes = figma.currentPage.findAll(node => node.type === "TEXT");
+  
+	// Delete the old report node (if it's there), and make a new one
+	createReportNode();
+  
+	// If variable is found in node name, add to varNames array
+	nodes.forEach(async (node: TextNode) => {
+	  if (!isVar(node.name)) return;
+  
+	  getNodeFonts(node).forEach((font) => fontsToLoad.push(font))
+	  varNames.push(getVarName(node.name));
+	});
+  
+	// Continue only after the fonts load
+	Promise.all([loadFontList(fontsToLoad)]).then(() => {
+	  figma.showUI(__html__, { visible: false });
+	  figma.ui.postMessage({ type: 'sync', airtableConfig, varNames });
+	})
+  }
+  
 
 // Calls to "parent.postMessage" from within the HTML page will trigger this
 // callback. The callback will be passed the "pluginMessage" property of the
